@@ -1,6 +1,6 @@
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
-## Project
+## Sorting Algorithm Visualizer
 
 Inspired by Clément Mihailescu's amazing work @ https://github.com/clementmihailescu/Sorting-Visualizer-Tutorial.
 My personal implmentation of a sorting algorithm visualization tool. Created using React with React Hooks.
