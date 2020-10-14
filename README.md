@@ -8,7 +8,7 @@ My personal implmentation of a sorting algorithm visualization tool. Created usi
 
 ## Sorting Algorithms
 1. Merge Sort (Thanks to Clément Mihailescu)
-2. Bubble Sort
+2. Bubble Sort (Slow algorithms so I suggest reducing the number of bars greatly)
 3. Quick Sort
 4. Insertion Sort
 5. Heap Sort
