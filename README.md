@@ -16,7 +16,7 @@ My personal implmentation of a sorting algorithm visualization tool. Created usi
 
 ## Test Application
 
-1. Please run `npm install` to download all the dependenccies
+1. Please run `npm install` to download all the dependencies
 2. Run one of the commands below depending on how you want to run the application
 
 ### `npm start`
