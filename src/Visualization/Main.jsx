@@ -340,16 +340,16 @@ export const Main = (props) => {
 							<br />
 							<div className='row'>
 								<input
-									className='btn btn-primary ml-auto mr-2 mb-2'
-									type='submit'
-									value='Sort'
+									onClick={resetArray}
+									className='btn btn-secondary ml-auto mr-2 mb-2'
+									type='button'
+									value='Generate New Array'
 									disabled={disabled}
 								/>
 								<input
-									onClick={resetArray}
-									className='btn btn-secondary mr-2 mb-2'
-									type='button'
-									value='Generate New Array'
+									className='btn btn-primary mr-2 mb-2'
+									type='submit'
+									value='Sort'
 									disabled={disabled}
 								/>
 							</div>
