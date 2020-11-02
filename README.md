@@ -7,14 +7,13 @@ This project was bootstrapped with [Create React App](https://github.com/faceboo
 Inspired by Clément Mihailescu's amazing work @ https://github.com/clementmihailescu/Sorting-Visualizer-Tutorial.
 My personal implmentation of a sorting algorithm visualization tool. Created using React with React Hooks.
 
-
 ## Sorting Algorithms
+
 1. Merge Sort (Thanks to Clément Mihailescu)
 2. Bubble Sort (Slow algorithms so I suggest reducing the number of bars greatly)
 3. Quick Sort
 4. Insertion Sort
 5. Heap Sort
-
 
 ## Test Application
 

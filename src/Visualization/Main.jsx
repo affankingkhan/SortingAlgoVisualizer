@@ -341,13 +341,13 @@ export const Main = (props) => {
 							<div className='row'>
 								<input
 									onClick={resetArray}
-									className='btn btn-secondary ml-auto mr-2 mb-2'
+									className='btn btn-secondary ml-auto mr-2 mb-3'
 									type='button'
 									value='Generate New Array'
 									disabled={disabled}
 								/>
 								<input
-									className='btn btn-primary mr-2 mb-2'
+									className='btn btn-primary mr-2 mb-3'
 									type='submit'
 									value='Sort'
 									disabled={disabled}
