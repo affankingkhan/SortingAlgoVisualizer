@@ -1,5 +1,7 @@
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
+![alt text](/Images/screenshot.png)
+
 ## Sorting Algorithm Visualizer
 
 Inspired by Clément Mihailescu's amazing work @ https://github.com/clementmihailescu/Sorting-Visualizer-Tutorial.
