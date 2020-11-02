@@ -6,7 +6,6 @@ export function QuickSortAnimations(array) {
 }
 
 function QuickSort(array, left, right, animations) {
-	let index;
 	if (array.length > 1) {
 		let index = Partition(array, left, right, animations);
 		if (left < index - 1) {

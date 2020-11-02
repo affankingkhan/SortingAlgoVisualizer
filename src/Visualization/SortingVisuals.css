@@ -8,3 +8,16 @@
 	display: inline-block;
 	margin: 0 1px;
 }
+
+.custom-header {
+	/* background-color: #47767a; */
+	background-color: #333b3f;
+}
+
+.custom-bars-background {
+	background-color: white;
+}
+
+.white-font {
+	color: white;
+}

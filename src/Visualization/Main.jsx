@@ -1,8 +1,5 @@
 import React, { useState, useEffect } from "react";
 import {
-	Card,
-	CardBody,
-	CardTitle,
 	Form,
 	FormGroup,
 	Label,
@@ -19,24 +16,18 @@ import { QuickSortAnimations } from "../Algorithms/qickSort";
 import { InsertionSortAnimations } from "../Algorithms/insertionSort";
 import { HeapSortAnimations } from "../Algorithms/heapSort";
 
-const PRIMARY_COLOR = "cyan";
+const PRIMARY_COLOR = "blue";
 
 const SECONDARY_COLOR = "red";
 
-const FIXED_COLOR = "orange";
+const PIVOT_COLOR = "green";
 
-const PIVOT_COLOR = "purple";
-
-const NOT_SORTED = "Not Sorted";
-const CURRENTLY_SORTING = "Currently Sorting";
-const SORTED = "Sorted";
-
-export const Controls = (props) => {
+export const Main = (props) => {
 	/**
 	 * State Functions
 	 */
 
-	const [fixedState, setFixedState] = useState({
+	const [fixedState] = useState({
 		barsRange: {
 			min: 9,
 			max: 200,
@@ -50,7 +41,6 @@ export const Controls = (props) => {
 	const [barsCount, setBarsCount] = useState(195);
 	const [sortingMethod, setSortingMethod] = useState("Quick Sort");
 	const [sortingSpeed, setSortingSpeed] = useState(2);
-	const [sortingState, setSortingState] = useState(NOT_SORTED);
 	const [disabled, setDisabled] = useState(false);
 
 	/**
@@ -89,7 +79,6 @@ export const Controls = (props) => {
 
 	const sortBars = (e) => {
 		e.preventDefault();
-		// setDisabled(true);
 		switch (sortingMethod) {
 			case "Merge Sort":
 				mergeSort();
@@ -111,7 +100,8 @@ export const Controls = (props) => {
 		}
 	};
 
-	const mergeSort = () => {
+	const mergeSort = async () => {
+		await setDisabled(true);
 		let animations = MergeSortAnimations(bars);
 		for (let i = 0; i < animations.length; i++) {
 			const arrayBars = document.getElementsByClassName("array-bar");
@@ -121,21 +111,21 @@ export const Controls = (props) => {
 				const barOneStyle = arrayBars[barOneIdx].style;
 				const barTwoStyle = arrayBars[barTwoIdx].style;
 				const color = i % 3 === 0 ? SECONDARY_COLOR : PRIMARY_COLOR;
-				setTimeout(() => {
-					barOneStyle.backgroundColor = color;
-					barTwoStyle.backgroundColor = color;
-				}, i * sortingSpeed);
+				changeBarColor(barOneStyle, color);
+				changeBarColor(barTwoStyle, color);
+				await timer(sortingSpeed);
 			} else {
-				setTimeout(() => {
-					const [barOneIdx, newHeight] = animations[i];
-					const barOneStyle = arrayBars[barOneIdx].style;
-					barOneStyle.height = `${newHeight}px`;
-				}, i * sortingSpeed);
+				const [barOneIdx, newHeight] = animations[i];
+				const barOneStyle = arrayBars[barOneIdx].style;
+				changeBarHeight(barOneStyle, newHeight);
+				await timer(sortingSpeed);
 			}
 		}
+		await setDisabled(false);
 	};
 
-	const bubbleSort = () => {
+	const bubbleSort = async () => {
+		await setDisabled(true);
 		let animations = BubbleSortAnimations(bars);
 		for (let i = 0; i < animations.length; i++) {
 			const arrayBars = document.getElementsByClassName("array-bar");
@@ -145,23 +135,23 @@ export const Controls = (props) => {
 				const barOneStyle = arrayBars[barOneIdx].style;
 				const barTwoStyle = arrayBars[barTwoIdx].style;
 				const color = i % 4 === 0 ? SECONDARY_COLOR : PRIMARY_COLOR;
-				setTimeout(() => {
-					barOneStyle.backgroundColor = color;
-					barTwoStyle.backgroundColor = color;
-				}, i * sortingSpeed);
+
+				changeBarColor(barOneStyle, color);
+				changeBarColor(barTwoStyle, color);
+				await timer(sortingSpeed);
 			} else {
-				setTimeout(() => {
-					const [barOneIdx, newHeight] = animations[i];
-					const barOneStyle = arrayBars[barOneIdx].style;
-					barOneStyle.height = `${newHeight}px`;
-				}, i * sortingSpeed);
+				const [barOneIdx, newHeight] = animations[i];
+				const barOneStyle = arrayBars[barOneIdx].style;
+				changeBarHeight(barOneStyle, newHeight);
+				await timer(sortingSpeed);
 			}
 		}
+		await setDisabled(false);
 	};
 
-	const quickSort = () => {
+	const quickSort = async () => {
+		await setDisabled(true);
 		let animations = QuickSortAnimations(bars);
-		// console.log(animations);
 		for (let i = 0; i < animations.length; i++) {
 			const arrayBars = document.getElementsByClassName("array-bar");
 			let animation = animations[i];
@@ -191,16 +181,20 @@ export const Controls = (props) => {
 						color = PRIMARY_COLOR;
 				}
 
-				changeBarColor(barToChangeColor, color, i);
+				changeBarColor(barToChangeColor, color);
+				await timer(sortingSpeed);
 			} else {
 				const [barOneIdx, newHeight] = animations[i];
 				const barToChangeHeight = arrayBars[barOneIdx].style;
-				changeBarHeight(barToChangeHeight, newHeight, i);
+				changeBarHeight(barToChangeHeight, newHeight);
+				await timer(sortingSpeed);
 			}
 		}
+		await setDisabled(false);
 	};
 
-	const insertionSort = () => {
+	const insertionSort = async () => {
+		await setDisabled(true);
 		let animations = InsertionSortAnimations(bars);
 		for (let i = 0; i < animations.length; i++) {
 			const arrayBars = document.getElementsByClassName("array-bar");
@@ -212,18 +206,21 @@ export const Controls = (props) => {
 					animation[0] === "color_on"
 						? SECONDARY_COLOR
 						: PRIMARY_COLOR;
-				changeBarColor(barToChangeColor, color, i);
+				changeBarColor(barToChangeColor, color);
+				await timer(sortingSpeed);
 			} else {
 				const [barOneIdx, newHeight] = animations[i];
 				const barToChangeHeight = arrayBars[barOneIdx].style;
-				changeBarHeight(barToChangeHeight, newHeight, i);
+				changeBarHeight(barToChangeHeight, newHeight);
+				await timer(sortingSpeed);
 			}
 		}
+		await setDisabled(false);
 	};
 
-	const heapSort = () => {
+	const heapSort = async () => {
+		await setDisabled(true);
 		let animations = HeapSortAnimations(bars);
-		// console.log(animations);
 		for (let i = 0; i < animations.length; i++) {
 			const arrayBars = document.getElementsByClassName("array-bar");
 			let animation = animations[i];
@@ -248,125 +245,133 @@ export const Controls = (props) => {
 					default:
 						color = PRIMARY_COLOR;
 				}
-				changeBarColor(barToChangeColor, color, i);
+				changeBarColor(barToChangeColor, color);
+				await timer(sortingSpeed);
 			} else {
 				const [barOneIdx, newHeight] = animations[i];
 				const barToChangeHeight = arrayBars[barOneIdx].style;
-				changeBarHeight(barToChangeHeight, newHeight, i);
+				changeBarHeight(barToChangeHeight, newHeight);
+				await timer(sortingSpeed);
 			}
 		}
+		await setDisabled(false);
 	};
 
-	const changeBarHeight = (barToChangeHeight, height, i) => {
-		setTimeout(() => {
-			barToChangeHeight.height = `${height}px`;
-		}, i * sortingSpeed);
+
+	/**
+	 * Helper functions to change bar height color and for delaying
+	 */
+	const changeBarHeight = (barToChangeHeight, height) => {
+		barToChangeHeight.height = `${height}px`;
 	};
-	const changeBarColor = (barToChangeColor, color, i) => {
-		setTimeout(() => {
-			barToChangeColor.backgroundColor = color;
-		}, i * sortingSpeed);
+	const changeBarColor = (barToChangeColor, color) => {
+		barToChangeColor.backgroundColor = color;
 	};
+
+	const timer = ms => new Promise(res => setTimeout(res, ms))
 
 	return (
-		<div>
-			<Card>
-				<CardTitle>Controls</CardTitle>
-				<CardBody>
-					<Form onSubmit={sortBars}>
-						<FormGroup>
-							<div className='col-12'>
-								<div className='row'>
-									<div className='col-4'>
-										<Label
-											className='float-left'
-											for='exampleSelect'
-										>
-											Sorting Algorithm
-										</Label>
-										<Input
-											type='select'
-											name='select'
-											id='sorting-algo-select'
-											onChange={changeSortingAlgo}
-											value={sortingMethod}
-											disabled={disabled}
-										>
-											<option>Merge Sort</option>
-											<option>Bubble Sort</option>
-											<option>Quick Sort</option>
-											<option>Insertion Sort</option>
-											<option>Heap Sort</option>
-										</Input>
-									</div>
-
-									<div className='col-4'>
-										<Label
-											className='float-left'
-											for='barRange'
-										>
-											Number of Bars
-										</Label>
-										<br />
-										<br />
-										<InputRange
-											maxValue={fixedState.barsRange.max}
-											minValue={fixedState.barsRange.min}
-											value={barsCount}
-											onChange={changeNumberOfBars}
-											disabled={disabled}
-										/>
-									</div>
-
-									<div className='col-4'>
-										<Label
-											className='float-left'
-											for='speedRange'
-										>
-											Sort Speed (ms)
-										</Label>
-										<br />
-										<br />
-										<InputRange
-											maxValue={fixedState.speedRange.max}
-											minValue={fixedState.speedRange.min}
-											value={sortingSpeed}
-											onChange={changeSortingSpeed}
-											disabled={disabled}
-										/>
-									</div>
+		<div className='custom-bars-background '>
+			<div className='custom-header'>
+				<Form onSubmit={sortBars}>
+					<FormGroup>
+						<div className='col-12'>
+							<div className='row'>
+								<div className='col-4'>
+									<Label
+										className='float-left white-font'
+										for='exampleSelect'
+									>
+										Sorting Algorithm
+									</Label>
+									<Input
+										type='select'
+										name='select'
+										id='sorting-algo-select'
+										onChange={changeSortingAlgo}
+										value={sortingMethod}
+										disabled={disabled}
+									>
+										<option>Merge Sort</option>
+										<option>Bubble Sort</option>
+										<option>Quick Sort</option>
+										<option>Insertion Sort</option>
+										<option>Heap Sort</option>
+									</Input>
 								</div>
-								<br />
-								<br />
-								<div>
-									<input
-										className='btn btn-primary float-right'
-										type='submit'
-										value='Sort'
+
+								<div className='col-4'>
+									<Label
+										className='float-left white-font'
+										for='barRange'
+									>
+										Number of Bars
+									</Label>
+									<br />
+									<br />
+									<InputRange
+										maxValue={fixedState.barsRange.max}
+										minValue={fixedState.barsRange.min}
+										value={barsCount}
+										onChange={changeNumberOfBars}
 										disabled={disabled}
 									/>
-									<input
-										onClick={resetArray}
-										className='btn btn-secondary float-right mr-1'
-										type='button'
-										value='Generate New Array'
+								</div>
+
+								<div className='col-4'>
+									<Label
+										className='float-left white-font'
+										for='speedRange'
+									>
+										Sorting Speed (ms)
+									</Label>
+									<br />
+									<br />
+									<InputRange
+										maxValue={fixedState.speedRange.max}
+										minValue={fixedState.speedRange.min}
+										value={sortingSpeed}
+										onChange={changeSortingSpeed}
 										disabled={disabled}
 									/>
 								</div>
 							</div>
-						</FormGroup>
-					</Form>
-				</CardBody>
-			</Card>
-			<br />
+							<br />
+							<br />
+							<div className='row'>
+								<input
+									className='btn btn-primary ml-auto mr-2 mb-2'
+									type='submit'
+									value='Sort'
+									disabled={disabled}
+								/>
+								<input
+									onClick={resetArray}
+									className='btn btn-secondary mr-2 mb-2'
+									type='button'
+									value='Generate New Array'
+									disabled={disabled}
+								/>
+							</div>
+						</div>
+					</FormGroup>
+				</Form>
+			</div>
 			<BarGraphRender array={bars}></BarGraphRender>
 		</div>
 	);
 };
 
+/**
+ * Renders the Bars
+ * @param {Object} props 
+ */
 const BarGraphRender = (props) => {
 	let array = props.array;
 	let bars = "";
+	let margin = 0.1; 
+	let width = 100/(array.length)-(2*margin);
+
 	if (array) {
 		bars = array.map((value, idx) => (
 			<div
@@ -376,14 +381,18 @@ const BarGraphRender = (props) => {
 				style={{
 					backgroundColor: PRIMARY_COLOR,
 					height: `${value}px`,
-					width: "4px",
+					width: `${width}%`,
+					margin: `${margin}%`
 				}}
 			></div>
 		));
 	}
-	return <div className='array-container center'>{bars}</div>;
+	return <div className='center'>{bars}</div>;
 };
 
+/**
+ * Generate random number from min to max
+ */
 function randomIntFromInterval(min, max) {
 	return Math.floor(Math.random() * (max - min + 1) + min);
 }

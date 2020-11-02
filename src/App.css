@@ -21,3 +21,12 @@
 .App-link {
 	color: #61dafb;
 }
+
+.custom-header {
+	/* background-color: #47767a; */
+	background-color: #333b3f;
+}
+
+.white-font {
+	color: white;
+}
